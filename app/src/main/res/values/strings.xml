@@ -10,5 +10,9 @@
     <string name="home">Home</string>
     <string name="info">Info</string>
     <string name="author">Author</string>
+    <string name="ask_exit_title">Closing App</string>
+    <string name="ask_exit_confirm">Are you sure you want to close the calculator ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>
