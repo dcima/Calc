@@ -3,6 +3,7 @@ package it.diegocimarosa.calc;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -83,25 +85,28 @@ public class Calc extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = null;
+
+        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
+            Log.i("FRAGMENT", "Found fragment: " + fm.getBackStackEntryAt(entry).getId());
+        }
 
         if (id == R.id.nav_home) {
             Home home = new Home();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction()
+            fm.beginTransaction()
                     .addToBackStack("Home")
                     .replace(R.id.mainLayout, home)
                     .commit();
         } else if (id == R.id.nav_info) {
             Info info = new Info();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction()
+            fm.beginTransaction()
                     .addToBackStack("Info")
                     .replace(R.id.mainLayout, info)
                     .commit();
         } else if (id == R.id.nav_author) {
             Author author = new Author();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction()
+            fm.beginTransaction()
                     .addToBackStack("Author")
                     .replace(R.id.mainLayout, author)
                     .commit();
