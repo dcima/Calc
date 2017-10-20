@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class Home extends Fragment {
     String leftValue = "";
     String rightValue = "";
     int result = 0;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
     public Home() {
         // Required empty public constructor
     }
@@ -57,70 +59,70 @@ public class Home extends Fragment {
         btn_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(0);
+                numberPressed(v, 0);
             }
         });
 
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(1);
+                numberPressed(v, 1);
             }
         });
 
         btn_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(2);
+                numberPressed(v, 2);
             }
         });
 
         btn_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(3);
+                numberPressed(v, 3);
             }
         });
 
         btn_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(4);
+                numberPressed(v, 4);
             }
         });
 
         btn_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(5);
+                numberPressed(v, 5);
             }
         });
 
         btn_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(6);
+                numberPressed(v, 6);
             }
         });
 
         btn_7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(7);
+                numberPressed(v, 7);
             }
         });
 
         btn_8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(8);
+                numberPressed(v, 8);
             }
         });
 
         btn_9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberPressed(9);
+                numberPressed(v, 9);
             }
         });
 
@@ -208,7 +210,9 @@ public class Home extends Fragment {
         }
     }
 
-    void numberPressed(int number) {
+    void numberPressed(View v, int number) {
+        v.startAnimation(buttonClick);
+
         runnningNumber += String.valueOf(number);
         resultField.setText(runnningNumber);
     }
