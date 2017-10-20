@@ -51,7 +51,8 @@ public class Calc extends AppCompatActivity
             // int countFragment = getFragmentManager().getBackStackEntryCount();
             int countFragment = fm.getBackStackEntryCount();
             if (countFragment > 0) {
-                fm.popBackStack();
+                //fm.popBackStack();
+                super.onBackPressed();
             } else {
                 askConfirm();
             }
@@ -85,36 +86,69 @@ public class Calc extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        int entry = -1;
+
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = null;
 
-        for(int entry = 0; entry < fm.getBackStackEntryCount(); entry++){
-            Log.i("FRAGMENT", "Found fragment: " + fm.getBackStackEntryAt(entry).getId());
-        }
-
         if (id == R.id.nav_home) {
-            Home home = new Home();
-            fm.beginTransaction()
-                    .addToBackStack("Home")
-                    .replace(R.id.mainLayout, home)
-                    .commit();
+            entry = searchFragment(fm, "Home");
+            if (entry == -1) {
+                Fragment home = new Home();
+                fm.beginTransaction()
+                        .replace(R.id.mainLayout, home)
+                        .addToBackStack("Home")
+                        .commit();
+            } else {
+                fm.popBackStack("Home", 0);
+            }
         } else if (id == R.id.nav_info) {
-            Info info = new Info();
-            fm.beginTransaction()
-                    .addToBackStack("Info")
-                    .replace(R.id.mainLayout, info)
-                    .commit();
-        } else if (id == R.id.nav_author) {
-            Author author = new Author();
-            fm.beginTransaction()
-                    .addToBackStack("Author")
-                    .replace(R.id.mainLayout, author)
-                    .commit();
+            entry = searchFragment(fm, "Info");
+            if (entry == -1) {
+                Fragment info = new Info();
+                fm.beginTransaction()
+                        .replace(R.id.mainLayout, info)
+                        .addToBackStack("Info")
+                        .commit();
+            } else {
+                fm.popBackStack("Info", 0);
+            }
+        } else {
+            if (id == R.id.nav_author) {
+                entry = searchFragment(fm, "Author");
+                if (entry == -1) {
+                    Fragment author = new Author();
+                    fm.beginTransaction()
+                            .replace(R.id.mainLayout, author)
+                            .addToBackStack("Author")
+                            .commit();
+                } else {
+                    fm.popBackStack("Author", 0);
+                }
+            }
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private int searchFragment(FragmentManager fm, String name) {
+        FragmentManager.BackStackEntry bse = null;
+        String fragmentName = null;
+        int entry;
+
+        for (entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
+            bse = fm.getBackStackEntryAt(entry);
+            fragmentName = bse.getName();
+            if (fragmentName == name) {
+                Log.i("FRAGMENT", "Found fragment: " + fragmentName);
+                return entry;
+            }
+        }
+
+        return -1;
+
     }
 
     private void askConfirm() {
