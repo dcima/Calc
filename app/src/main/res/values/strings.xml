@@ -25,4 +25,9 @@
     <string name="only_integer_numbers">Only integer numbers!!!</string>
     <string name="study_application">A study application</string>
     <string name="yes">Yes</string>
+    <string name="divide_by_zero">Division by zero</string>
+    <string name="info_rss">http://www.diegocimarosa.it/tag/calc-app/feed/</string>
+    <string name="negative_result">Currently can\'t elaborate negative result</string>
+    <string name="comma">,</string>
+    <string name="_0">0</string>
 </resources>
